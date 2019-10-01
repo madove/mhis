@@ -1,7 +1,7 @@
 FROM n1c0l4stournier/java8:centos
 
 RUN yum update -y && \
-    yum install -y curl git && \
+    yum install -y curl git wget && \
     rm -rf /var/cache/yum
 
 ARG USER=jenkins
@@ -41,10 +41,10 @@ COPY init.groovy /usr/share/jenkins/ref/init.groovy.d/tcp-slave-agent-port.groov
 
 # jenkins version being bundled in this docker image
 ARG JENKINS_VERSION
-ENV JENKINS_VERSION ${JENKINS_VERSION:-2.121.2}
+ENV JENKINS_VERSION ${JENKINS_VERSION:-2.190.1}
 
 # jenkins.war checksum, download will be validated using it
-ARG JENKINS_SHA=da0f9d106e936246841a898471783fb4fbdbbacc8d42a156b7306a0855189602
+ARG JENKINS_SHA=46fb1d25d9423fc66aadd648dc74b9772863a7fbbd89bfc14c873cd0c3436f05
 
 # Can be used to customize where jenkins.war get downloaded from
 ARG JENKINS_URL=https://repo.jenkins-ci.org/public/org/jenkins-ci/main/jenkins-war/${JENKINS_VERSION}/jenkins-war-${JENKINS_VERSION}.war
