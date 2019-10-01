@@ -3,7 +3,7 @@ version: '3.7'
 services:
 
   jenkins:
-    image: n1c0l4stournier/jenkins-k8s:2.121.1-centos
+    image: n1c0l4stournier/jenkins:2.138.1-centos7
     ports:
     - "8080:8080"
     - "50000:50000"

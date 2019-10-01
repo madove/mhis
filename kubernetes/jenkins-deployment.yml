@@ -1,0 +1,37 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: jenkins-master
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: jenkins-master
+    spec:
+      containers:
+      - image: mdve/jenkins-docker-k8s
+        imagePullPolicy: Always
+        name: jenkins-master
+        ports:
+        - containerPort: 8080
+        - containerPort: 50000
+        env:
+        - name: JAVA_OPTS
+          value: '-Xmx1400m'
+        resources:
+          limits:
+            cpu: 500m
+            memory: 1500Mi
+          requests:
+            cpu: 500m
+            memory: 1500Mi
+        volumeMounts:
+          - name: jenkins-home2
+            mountPath: /var/jenkins_home
+      nodeSelector:
+        jenkins: master
+      volumes:
+      - name: jenkins-home2
+        hostPath:
+          path: /var/jenkins_home
